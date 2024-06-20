@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='app.css') }}"
+    />
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>My FW</title>
+  </head>
+  <body>
+    <h1>My FW</h1>
+    <a href="{{ url_for('search') }}">Search Database</a>
+    <div class="modal" id="success-modal">
+      <div class="modal-content">
+        <p id="success-message"></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Add Item</div>
+      <div class="card-body">
+        <form id="item-form" action="/insert_item" method="post">
+          <label for="brand_name">Brand Name:</label>
+          <input
+            type="text"
+            id="brand_name"
+            name="brand_name"
+            required
+          /><br /><br />
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" required /><br /><br />
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required /><br /><br />
+          <label for="notes">Notes:</label>
+          <textarea id="notes" name="notes"></textarea><br /><br />
+          <button type="submit">SAVE</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
