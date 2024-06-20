@@ -13,15 +13,14 @@
     <title>My FW</title>
   </head>
   <body>
-    <h1>My FW</h1>
-    <a href="{{ url_for('search') }}">Search Database</a>
-    <div class="modal" id="success-modal">
-      <div class="modal-content">
-        <p id="success-message"></p>
-      </div>
+    <nav>
+      <h1>My FW</h1>
+      <a href="{{ url_for('search') }}">Search Database</a>
+    </nav>
+    <div class="card-header">
+      <h4>Add job record to database</h4>
     </div>
     <div class="card">
-      <div class="card-header">Add Item</div>
       <div class="card-body">
         <form id="item-form" action="/insert_item" method="post">
           <label for="brand_name">Brand Name:</label>

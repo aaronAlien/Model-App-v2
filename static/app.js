@@ -1,28 +1,37 @@
-// Send an AJAX request when the form is submitted
-document
-  .getElementById('item-form')
-  .addEventListener('submit', function (event) {
+const form = document.getElementById('item-form');
+const successModal = document.getElementById('success-modal');
+const successMessage = document.getElementById('success-message');
+const searchForm = document.getElementById('search-form');
+
+// Send an AJAX request upon submission
+if (form) {
+  form.addEventListener('submit', function (event) {
     event.preventDefault();
-    var formData = new FormData(this);
+    event.stopPropagation(); // event bubbling - prevent triggering other events
+
+    let formData = new FormData(form);
+
     fetch('/insert_item', {
       method: 'POST',
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
-        // Display the success message in the modal
-        document.getElementById('success-message').innerHTML = data.message;
-        document.getElementById('success-modal').style.display = 'block';
+        // create list
+        let recentList = document.getElementById('recent-list');
 
-        // Automatically close the modal after 2 seconds
-        setTimeout(function () {
-          document.getElementById('success-modal').style.display = 'none';
-        }, 2000); // 2 seconds
+        // add recent added to list
+        data.forEach((item) => {
+          let listItem = document.createElement('li');
+          listItem.textContent = `Name: ${item.name}, Description: ${item.description}`;
+          recentList.appendChild(listItem);
+        });
       })
       .catch((error) => console.error('Error:', error));
   });
+}
 
-document.getElementById('search-form').addEventListener('submit', (e) => {
+searchForm.addEventListener('submit', (e) => {
   e.preventDefault(); // Prevent default form submission behavior
 
   const column = document.getElementById('search-column').value;
