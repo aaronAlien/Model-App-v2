@@ -53,8 +53,13 @@ def search_results():
     c = conn.cursor()
 
     try:
-        query = f"SELECT * FROM items WHERE {column} LIKE?"
-        c.execute(query, (f"%{search_term}%",))
+        # if statement prevent matches where record includes the same id number, not exact search
+        if column == 'id':
+            query = f'SELECT * FROM items WHERE {column} =?'
+            c.execute(query, (search_term,))
+        else:
+            query = f'SELECT * FROM items WHERE {column} LIKE?'
+            c.execute(query, (f'%{search_term}%',))
         results = c.fetchall()
     except sqlite3.Error as e:
         print(f"Error: {e}")
